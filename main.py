@@ -11,6 +11,9 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         if self.path == '/connected':
             connected_event.set()
 
+def start_http_server():
+    httpd = HTTPServer(('', 8000), SimpleHTTPRequestHandler)
+    httpd.serve_forever()
 
 def main():
     broadcast_address = get_broadcast_address()
@@ -25,10 +28,13 @@ def main():
             send_my_ip_to_broadcast(ip_address,broadcast_address)
             time.sleep(interval)
 
-    httpd = HTTPServer(('', 8000), SimpleHTTPRequestHandler)
-    httpd.serve_forever()
     connected_thread = threading.Thread(target=infinite_loop_broadcast)
     connected_thread.start()
+
+    http_thread = threading.Thread(target=start_http_server)
+    http_thread.start()
+    
+    
 
 
 
