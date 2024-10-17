@@ -18,6 +18,7 @@ def main():
 
     def infinite_loop_broadcast():
         interval = 5  # seconds
+        print("Inside loop broadcast")
         while True:
             if connected_event.is_set():
                 break
