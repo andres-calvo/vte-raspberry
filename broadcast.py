@@ -33,7 +33,7 @@ def get_local_ip():
     return local_ip
 
 def send_my_ip_to_broadcast(ip,broadcast_ip):
-    message = f'{ip}'.encode('utf-8')
+    message = f'RASPBERRY-{ip}'.encode('utf-8')
     # Crear el socket UDP
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
