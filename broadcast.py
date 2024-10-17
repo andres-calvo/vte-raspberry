@@ -1,5 +1,8 @@
 import netifaces as ni
 import socket
+
+broadcast_port = 12345
+
 def get_broadcast_address():
     interfaces = ni.interfaces()
     for interface in interfaces:
@@ -28,4 +31,14 @@ def get_local_ip():
     finally:
         s.close()
     return local_ip
+
+def send_my_ip_to_broadcast(ip,broadcast_ip):
+    message = f'{ip}'.encode('utf-8')
+    # Crear el socket UDP
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+
+    # Enviar el mensaje de broadcast con la IP  
+    sock.sendto(message, (broadcast_ip, broadcast_port))
+
 
