@@ -24,6 +24,7 @@ def main():
         print("Inside loop broadcast")
         while True:
             if connected_event.is_set():
+                print("A connection is establish")
                 break
             send_my_ip_to_broadcast(ip_address,broadcast_address)
             time.sleep(interval)
